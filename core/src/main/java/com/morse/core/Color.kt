@@ -1,4 +1,4 @@
-package com.morse.news.ui.theme
+package com.morse.core
 
 import androidx.compose.ui.graphics.Color
 

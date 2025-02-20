@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.morse.datasource"
+    namespace = "com.morse.onboarding"
     compileSdk = 35
 
     defaultConfig {
@@ -45,21 +44,15 @@ android {
 }
 
 dependencies {
-
+    api(libs.androidx.activity.compose)
+    api(platform(libs.androidx.compose.bom))
+    api(libs.navigation.compose)
+    api(libs.androidx.ui.tooling.preview)
+    api(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    api(libs.kotlinx.coroutines.android)
-    api(libs.kotlinx.coroutines.core)
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.okhttp.logging.interceptor)
-    implementation(libs.gson.converter)
-    implementation(libs.gson)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    api(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    implementation(project(":datasource"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
