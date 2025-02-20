@@ -1,3 +1,5 @@
+
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -53,6 +55,7 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
     api(libs.androidx.ui.tooling.preview)
+    api(libs.androidx.constraintlayout.compose)
     api(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

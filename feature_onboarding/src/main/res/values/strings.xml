@@ -2,4 +2,9 @@
 <resources>
     <string name="newsy">NEWSY</string>
     <string name="news_you_can_trust">News you can trust.</string>
+    <string name="choose_topics_that_matter">Choose topics that matter.</string>
+    <string name="choose_countries_that_matter">Choose countries that matter.</string>
+    <string name="login">ADD PREFERENCES</string>
+    <string name="skip">SKIP</string>
+    <string name="next">NEXT</string>
 </resources>

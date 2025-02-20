@@ -22,6 +22,7 @@ ksp = "2.0.21-1.0.27"
 paging = "3.3.0-alpha04"
 navigation = "2.8.7"
 coil = "3.1.0"
+constraintlayout-compose = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +59,7 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
