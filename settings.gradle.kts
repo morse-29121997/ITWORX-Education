@@ -21,5 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "News"
 include(":app")
-include(":onboarding")
-include(":headline")
+include(":feature_onboarding")
+include(":feature_news")
+include(":datasource")
+include(":core")

@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -70,6 +69,8 @@ dependencies {
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.gson.converter)
     implementation(libs.gson)
+    implementation(project(":feature_onboarding"))
+    implementation(project(":feature_news"))
     ksp(libs.hilt.compiler)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
