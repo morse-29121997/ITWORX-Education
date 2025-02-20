@@ -7,4 +7,9 @@
     <string name="login">Add Preferences</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="save">Save</string>
+    <string name="back">BACK</string>
+    <string name="of">Of</string>
+    <string name="please_Select_country">Please select a country .</string>
+    <string name="please_Select_preference">Please select 3 preferences</string>
 </resources>

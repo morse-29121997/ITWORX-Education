@@ -55,6 +55,8 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
     api(libs.androidx.ui.tooling.preview)
+    api(libs.coil.compose)
+    api(libs.coil.network.okhttp)
     api(libs.androidx.constraintlayout.compose)
     api(project(":core"))
     implementation(libs.androidx.core.ktx)

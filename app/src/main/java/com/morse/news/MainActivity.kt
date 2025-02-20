@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.morse.onboarding.onboarding.OnBoardingScreen
+import com.morse.onboarding.preferences.PreferenceScreen
 import com.morse.onboarding.splash.SplashScreen
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +18,7 @@ class MainActivity : ComponentActivity() {
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
         enableEdgeToEdge()
         setContent {
-            OnBoardingScreen {  }
+            PreferenceScreen()
         }
     }
 }
