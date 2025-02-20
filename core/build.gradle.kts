@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -23,30 +24,40 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    api(libs.androidx.core.ktx)
+    api(libs.androidx.appcompat)
     api(libs.kotlinx.coroutines.android)
     api(libs.kotlinx.coroutines.core)
-    api(libs.androidx.activity.compose)
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
+    api(libs.androidx.ui)
+    api(libs.androidx.ui.graphics)
+    api(libs.androidx.material3)
     api(libs.retrofit)
     api(libs.okhttp)
     api(libs.okhttp.logging.interceptor)
     api(libs.gson.converter)
     api(libs.gson)
-    implementation(libs.material)
+    api(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
