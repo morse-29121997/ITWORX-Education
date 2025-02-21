@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -121,8 +122,12 @@ fun SearchScreen(onClose: () -> Unit = {}) {
                 shape = RoundedCornerShape(50),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = MyColor.color_000000,
-                    focusedIndicatorColor = MyColor.color_000000,
-                    unfocusedIndicatorColor = MyColor.color_000000 ,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent ,
+                    focusedTextColor = MyColor.color_FFFFFF,
+                    unfocusedTextColor = MyColor.color_af0909 ,
+                    focusedLabelColor = MyColor.color_af0909 ,
+                    cursorColor = MyColor.color_af0909 ,
 
                 ),
             )
