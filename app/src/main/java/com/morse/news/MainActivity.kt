@@ -6,6 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.morse.news.feature_news.HomeScreen
+import com.morse.news.feature_search.SearchScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +16,7 @@ class MainActivity : ComponentActivity() {
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
         enableEdgeToEdge()
         setContent {
-            HomeScreen()
+            SearchScreen()
         }
     }
 }

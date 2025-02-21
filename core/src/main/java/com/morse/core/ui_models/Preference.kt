@@ -1,4 +1,4 @@
-package com.morse.onboarding.preferences.select_preferences
+package com.morse.core.ui_models
 
 import androidx.compose.runtime.mutableStateOf
 
@@ -17,7 +17,9 @@ data class Preference(
                 nameAr = "عمل",
                 key = "business",
                 image = "https://cdn-icons-png.flaticon.com/512/7521/7521450.png"
-            ),
+            ).apply {
+                isSelected.value = true
+            },
             Preference(
                 nameEn = "Entertainment",
                 nameAr = "ترفيه",

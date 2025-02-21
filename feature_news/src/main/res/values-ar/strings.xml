@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="saved">Saved</string>
+    <string name="home">Home</string>
+    <string name="headlines">Headlines</string>
+    <string name="saved_news">Your prefered news to watch later</string>
+    <string name="search_on_news">Search</string>
+    <string name="search">Search</string>
+    <string name="write_here">Type here...</string>
+</resources>

@@ -36,7 +36,6 @@ import com.morse.core.ui.MyButtonGrey
 import com.morse.core.ui.MyButtonMain
 import com.morse.onboarding.R
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 @Composable
 fun OnBoardingScreen(onFinish: () -> Unit = {}) {
@@ -46,7 +45,6 @@ fun OnBoardingScreen(onFinish: () -> Unit = {}) {
     val items = OnBoardingItem.get()
     val statePager = rememberPagerState(initialPage = initialPage) { items.size }
     val scope = rememberCoroutineScope()
-    val locale = Locale.getDefault().language
     Box(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(

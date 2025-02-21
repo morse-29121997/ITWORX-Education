@@ -37,18 +37,14 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
-import com.morse.core.ui.Indicators
 import com.morse.core.ui.MyButtonGrey
 import com.morse.core.ui.MyButtonMain
 import com.morse.onboarding.R
-import com.morse.onboarding.onboarding.OnBoardingItem
-import com.morse.onboarding.preferences.select_country.SelectCountry
 import com.morse.onboarding.preferences.select_preferences.SelectPreferences
-import kotlinx.coroutines.launch
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun PreferenceScreen() {
+fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
     Box(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
