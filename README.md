@@ -1,5 +1,5 @@
 <p align="center">
-<img src="demo/itworx.jpeg"/>
+<img src=".demo/itworx.jpeg"/>
 </p>
 
 <h1 align="center">ITWORX Education Task</h1>
