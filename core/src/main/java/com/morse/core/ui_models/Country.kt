@@ -7,7 +7,7 @@ data class Country(
     val nameEn: String, // Country name in English
     val nameAr: String, // Country name in Arabic
     var key: String,     // Two-letter country code
-    var flag : String ?=null
+    var flag: String? = null
 ) {
     val isSelected = mutableStateOf(false)
     fun updateFlag(): Country {
@@ -37,6 +37,11 @@ data class Country(
                 nameEn = "Argentina",
                 nameAr = "الأرجنتين",
                 key = "ar",
+            ),
+            Country(
+                nameEn = "United States",
+                nameAr = "الولايات المتحدة",
+                key = "us",
             ),
             Country(
                 nameEn = "Austria",
@@ -283,11 +288,7 @@ data class Country(
                 nameAr = "أوكرانيا",
                 key = "ua",
             ),
-            Country(
-                nameEn = "United States",
-                nameAr = "الولايات المتحدة",
-                key = "us",
-            ),
+
             Country(
                 nameEn = "Venezuela",
                 nameAr = "فنزويلا",

@@ -19,8 +19,6 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled = true
-        buildConfigField("String", "BASE_COUNTRIES_URL", "\"https://restcountries.com/v3.1/\"")
-        buildConfigField("String", "BASE_NEWS_URL", "\"https://newsapi.org/v2/\"")
     }
 
     buildTypes {

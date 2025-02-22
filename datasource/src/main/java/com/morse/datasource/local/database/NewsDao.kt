@@ -1,6 +1,7 @@
 package com.morse.datasource.local.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,4 +16,8 @@ interface NewsDao {
 
     @Query("SELECT EXISTS(SELECT * FROM favourite_news WHERE url = :url)")
     suspend fun isExist (url : String) : Boolean
+
+    @Query("DELETE FROM favourite_news WHERE url = :url")
+    suspend fun delete(url : String)
+
 }

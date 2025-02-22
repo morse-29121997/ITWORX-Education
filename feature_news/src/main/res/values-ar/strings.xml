@@ -7,4 +7,5 @@
     <string name="search_on_news">بحث</string>
     <string name="search">بحث</string>
     <string name="write_here">اكتب هنا...</string>
+    <string name="by">نشر %1s! بواسطه %2s!</string>
 </resources>

@@ -18,6 +18,9 @@ android {
                 cppFlags("")
             }
         }
+        buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
+        buildConfigField("String", "KEY", "\"d3ce15736bd64937bc71168ba52abf9c\"")
+
     }
 
     buildTypes {
@@ -28,6 +31,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
     externalNativeBuild {
         cmake {

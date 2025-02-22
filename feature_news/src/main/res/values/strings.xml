@@ -7,4 +7,5 @@
     <string name="search_on_news">Search</string>
     <string name="search">Search</string>
     <string name="write_here">Type here...</string>
+    <string name="by">Published %1s! by %2s! </string>
 </resources>

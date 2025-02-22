@@ -1,22 +1,27 @@
 package com.morse.domain.repositories
 
+import androidx.paging.Pager
+import androidx.paging.PagingSource
 import com.morse.domain.models.New
 
 interface INewsRepository {
 
-    suspend fun getTopHeadline(
+    suspend fun getWatchLater(): List<New>
+
+   suspend fun isSaved(news: New): Boolean
+
+    fun saveFromWatchLater(news: New)
+
+    fun deleteFromWatchLater(news: New)
+
+    fun getTopHeadline(
         searchText: String?,
         country: String,
         category: ArrayList<String>,
-        page: Int,
-        pageSize: Int,
-    ): List<New>
+    ): Pager<Int, New>
 
-    suspend fun getAllNews(
+    fun getAllNews(
         searchText: String? = null,
-        country: String,
-        category: ArrayList<String>,
-        page: Int,
-        pageSize: Int,
-    ): List<New>
+        sources: ArrayList<String>,
+    ): Pager<Int, New>
 }

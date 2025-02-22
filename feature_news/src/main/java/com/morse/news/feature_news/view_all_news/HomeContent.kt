@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,26 +32,48 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil3.compose.AsyncImage
+import com.morse.core.extensions.convertDateWithTime
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
+import com.morse.core.ui.items
+import com.morse.core.ui_models.Country
+import com.morse.core.ui_models.New
 import com.morse.core.ui_models.Preference
+import com.morse.core.ui_models.Source
 import com.morse.news.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun HomeContent() {
-
+fun HomeContent(vm: NewsViewModel = hiltViewModel(), onPressed: (New) -> Unit) {
+    val state = vm.newsState.collectAsState().value
     Column(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        HeadLineNewsSection()
-        AllNewsSectionByCategorySection()
+        HeadLineNewsSection(state.headlineNews.collectAsLazyPagingItems(), { new, isSaved ->
+            vm.onEvent(NewsEvent.OnWatchLaterSelected(new, isSaved))
+        }, onPressed)
+        AllNewsSectionByCategorySection(
+            state.allSources,
+            state.allNews.collectAsLazyPagingItems(),
+            { vm.onEvent(NewsEvent.OnSourceSelected(it)) }, { new, isSaved ->
+                vm.onEvent(NewsEvent.OnWatchLaterSelected(new, isSaved))
+            },
+            onPressed
+        )
     }
 }
 
 @Composable
-fun HeadLineNewsSection() {
+fun HeadLineNewsSection(
+    news: LazyPagingItems<New>,
+    onSavedClicked: (New, Boolean) -> Unit,
+    onPressed: (New) -> Unit
+) {
     Text(
         text = stringResource(R.string.headlines),
         color = MyColor.color_9A9A9A,
@@ -66,22 +89,34 @@ fun HeadLineNewsSection() {
             .fillMaxWidth()
             .padding(vertical = 10.dp)
     ) {
-        items(10) {
-            HeadlineItem()
+        items(news) { new ->
+            HeadlineItem(new, onSavedClicked, onPressed)
         }
     }
 }
 
 @Composable
-fun AllNewsSectionByCategorySection() {
+fun AllNewsSectionByCategorySection(
+    sources: List<Source>,
+    news: LazyPagingItems<New>,
+    onPreferenceSelected: (Source) -> Unit,
+    onSavedClicked: (New, Boolean) -> Unit,
+    onNewPressed: (New) -> Unit,
+) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 20.dp, start = 10.dp, end = 10.dp)
     ) {
-        items(Preference.get()) {
-            PreferenceChip(it) {
-                it.isSelected.value = !it.isSelected.value
+        items(sources) { source ->
+            PreferenceChip(source) {
+                source.isSelected.value = !source.isSelected.value
+                sources.onEach {
+                    if (it.key != source.key) {
+                        it.isSelected.value = false
+                    }
+                }
+                onPreferenceSelected.invoke(source)
             }
         }
     }
@@ -91,18 +126,19 @@ fun AllNewsSectionByCategorySection() {
             .fillMaxSize()
             .padding(top = 10.dp)
     ) {
-        items(30) {
-            NewItem()
+        items(news) { new ->
+            NewItem(new, onNewPressed, onSavedClicked)
         }
     }
 }
 
 @Composable
-fun NewItem() {
+fun NewItem(new: New, onPressed: (New) -> Unit, onSavedClicked: (New, Boolean) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 10.dp)
+            .clickable { onPressed.invoke(new) }
     ) {
         Image(
             painter = painterResource(R.drawable.news_bg),
@@ -115,7 +151,7 @@ fun NewItem() {
 
         Row(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
-                "https://dims.apnews.com/dims4/default/7b855e3/2147483647/strip/true/crop/3431x1930+0+179/resize/1440x810!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F64%2F31%2F7ac9a7c7d47c18a696606fb6cdcf%2F131c2627257c49a0a26d76433b3d4ddc",
+                new.urlToImage,
                 modifier = Modifier
                     .fillMaxWidth(0.45f)
                     .height(130.dp)
@@ -132,7 +168,7 @@ fun NewItem() {
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Part 2: 30 firms who donated Rs 335 cr to BJP were also stung by I-T, ED",
+                    text = new.title,
                     color = MyColor.color_FFFFFF,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
@@ -140,16 +176,23 @@ fun NewItem() {
                     modifier = Modifier.padding(horizontal = 10.dp)
                 )
 
-                NewsTagItem(Modifier, "politics")
+                NewsTagItem(Modifier, new.sourceName)
             }
         }
 
         Image(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_add_to_saved),
+            imageVector = ImageVector.vectorResource(if (new.isWatchedLater.value) R.drawable.ic_added_to_saved else R.drawable.ic_add_to_saved),
             modifier = Modifier
                 .align(
                     Alignment.BottomEnd
-                ),
+                )
+                .clickable {
+                    when (new.isWatchedLater.value) {
+                        true -> onSavedClicked.invoke(new, false)
+                        false -> onSavedClicked.invoke(new, true)
+                    }
+                    new.isWatchedLater.value = !new.isWatchedLater.value
+                },
             contentDescription = null,
             contentScale = ContentScale.FillBounds
 
@@ -158,14 +201,17 @@ fun NewItem() {
 }
 
 @Composable
-fun HeadlineItem() {
+fun HeadlineItem(new: New, onSavedClicked: (New, Boolean) -> Unit, onPressed: (New) -> Unit) {
     Box(
         modifier = Modifier
             .size(250.dp, 150.dp)
             .padding(horizontal = 10.dp)
+            .clickable {
+                onPressed.invoke(new)
+            }
     ) {
         AsyncImage(
-            "https://dims.apnews.com/dims4/default/7b855e3/2147483647/strip/true/crop/3431x1930+0+179/resize/1440x810!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F64%2F31%2F7ac9a7c7d47c18a696606fb6cdcf%2F131c2627257c49a0a26d76433b3d4ddc",
+            new.urlToImage,
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(7)),
@@ -185,19 +231,25 @@ fun HeadlineItem() {
 
         )
 
-        HeadlineNewsContent(modifier = Modifier.align(Alignment.BottomStart))
+        HeadlineNewsContent(modifier = Modifier.align(Alignment.BottomStart), new)
 
         HeadlineTagItem(modifier = Modifier.align(Alignment.TopStart))
 
         Image(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_add_to_saved),
+            imageVector = ImageVector.vectorResource(if (new.isWatchedLater.value) R.drawable.ic_added_to_saved else R.drawable.ic_add_to_saved),
             modifier = Modifier
                 .align(
                     Alignment.BottomEnd
-                ),
+                )
+                .clickable {
+                    when (new.isWatchedLater.value) {
+                        true -> onSavedClicked.invoke(new, false)
+                        false -> onSavedClicked.invoke(new, true)
+                    }
+                    new.isWatchedLater.value = !new.isWatchedLater.value
+                },
             contentDescription = null,
             contentScale = ContentScale.FillBounds
-
         )
     }
 }
@@ -243,10 +295,10 @@ fun NewsTagItem(modifier: Modifier = Modifier, name: String = "Ground report") {
 }
 
 @Composable
-fun HeadlineNewsContent(modifier: Modifier = Modifier) {
+fun HeadlineNewsContent(modifier: Modifier = Modifier, new: New) {
     Column(modifier.padding(horizontal = 10.dp, vertical = 10.dp)) {
         Text(
-            text = "March from Shambhu stalled, 1 from Punjab dead",
+            text = new.title,
             color = MyColor.color_FFFFFF,
             fontSize = 12.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -257,7 +309,7 @@ fun HeadlineNewsContent(modifier: Modifier = Modifier) {
         )
 
         Text(
-            text = "Jan 3,2024 by Basant Kumar",
+            text = stringResource(R.string.by, new.publishedAt.convertDateWithTime(), new.author ?: "-"),
             color = MyColor.color_A0A0A0,
             fontSize = 12.sp,
             fontWeight = FontWeight.ExtraBold,
@@ -272,15 +324,16 @@ fun HeadlineNewsContent(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PreferenceChip(preferences: Preference, onClicked: () -> Unit) {
+fun PreferenceChip(source: Source, onClicked: () -> Unit) {
     Column(
         modifier = Modifier.clickable { onClicked.invoke() },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Text(
-            text = preferences.nameEn,
-            color = if (preferences.isSelected.value) MyColor.color_ED1B23 else MyColor.color_9A9A9A,
+            text = source.name,
+            color = if (source.isSelected.value) MyColor.color_ED1B23 else MyColor.color_9A9A9A,
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,
             style = MyTypography.titleLarge,
@@ -288,7 +341,7 @@ fun PreferenceChip(preferences: Preference, onClicked: () -> Unit) {
                 .padding(top = 5.dp, start = 10.dp, end = 10.dp)
         )
 
-        if (preferences.isSelected.value) {
+        if (source.isSelected.value) {
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_under_line),
                 contentDescription = null

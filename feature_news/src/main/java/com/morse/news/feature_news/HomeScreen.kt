@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.morse.core.theme.MyColor
+import com.morse.core.ui_models.New
 import com.morse.news.R
 import com.morse.news.coordinator.NewsDirections
 import com.morse.news.feature_news.view_all_news.HomeContent
@@ -42,7 +43,7 @@ import com.morse.news.feature_news.view_saved_news.SavedContent
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreen(onNavigate: (NewsDirections) -> Unit = {}) {
+fun HomeScreen(onPressed: (New) -> Unit = {}, onNavigate: (NewsDirections) -> Unit = {}) {
 
     var currentScreen by remember {
         mutableStateOf<NewsDirections>(NewsDirections.Home.AllNews)
@@ -75,8 +76,8 @@ fun HomeScreen(onNavigate: (NewsDirections) -> Unit = {}) {
         ) {
 
             when (currentScreen) {
-                NewsDirections.Home.AllNews -> HomeContent()
-                else -> SavedContent()
+                NewsDirections.Home.AllNews -> HomeContent(onPressed = onPressed)
+                else -> SavedContent(onPressed = onPressed)
             }
 
         }
@@ -88,8 +89,8 @@ fun HomeScreen(onNavigate: (NewsDirections) -> Unit = {}) {
             currentScreen
         ) {
             currentScreen =
-                if (it == NewsDirections.Home.SavedNews) NewsDirections.Home.AllNews else NewsDirections.Home.SavedNews
-            onNavigate.invoke(it)
+                if (it == NewsDirections.Home.SavedNews) NewsDirections.Home.SavedNews else NewsDirections.Home.AllNews
+
         }
 
         Image(

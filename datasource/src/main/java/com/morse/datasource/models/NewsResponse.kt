@@ -13,11 +13,11 @@ data class NewsResponse(
 
 data class New(
     val source: Source,
-    val author: String,
+    val author: String ?= null,
     val title: String,
     val description: String,
     val url: String,
-    val urlToImage: String,
+    val urlToImage: String ?= null,
     val publishedAt: String,
     val content: String
 ) {

@@ -1,3 +1,5 @@
+
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -52,10 +54,14 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
     api(libs.androidx.ui)
+    api(libs.androidx.paging.common.android)
+    api(libs.paging.runtime)
+    api(libs.paging.compose)
     api(libs.androidx.ui.graphics)
     api(libs.androidx.material3)
     api(libs.retrofit)
     api(libs.okhttp)
+    implementation(libs.lottie.compose)
     api(libs.okhttp.logging.interceptor)
     api(libs.gson.converter)
     api(libs.gson)
