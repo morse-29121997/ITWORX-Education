@@ -8,8 +8,11 @@ import androidx.compose.material3.Scaffold
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.morse.news.coordinator.NewsNavHost
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

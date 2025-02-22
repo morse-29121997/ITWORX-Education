@@ -16,6 +16,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,17 +29,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil3.compose.AsyncImage
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
 import com.morse.core.ui_models.Preference
+import com.morse.onboarding.preferences.PreferencesEvents
+import com.morse.onboarding.preferences.PreferencesViewModel
 
 
 @Composable
 fun SelectPreferences(
-    preferences: List<Preference> = Preference.get(),
-    onPreferenceSelected: () -> Unit = {}
+    vm : PreferencesViewModel = hiltViewModel()
 ) {
+    val preferences = vm.preferencesState.collectAsState().value.allPreferences
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier
@@ -47,7 +51,9 @@ fun SelectPreferences(
         contentPadding = PaddingValues(top = 10.dp, bottom = 40.dp)
     ) {
         items(preferences.size) { index ->
-            PreferenceItem(preferences[index], onPreferenceSelected)
+            PreferenceItem(preferences[index]){
+                vm.onEvent(PreferencesEvents.SelectPreference(preferences[index]))
+            }
         }
     }
 

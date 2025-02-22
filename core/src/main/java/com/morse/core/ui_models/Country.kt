@@ -25,15 +25,14 @@ data class Country(
         return this
     }
 
+
     companion object All {
         fun get() = listOf(
             Country(
                 nameEn = "United Arab Emirates",
                 nameAr = "الإمارات العربية المتحدة",
                 key = "ae",
-            ).apply {
-                isSelected.value  = true
-            },
+            ),
             Country(
                 nameEn = "Argentina",
                 nameAr = "الأرجنتين",

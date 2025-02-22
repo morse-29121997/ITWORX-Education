@@ -45,6 +45,7 @@ fun OnBoardingScreen(onFinish: () -> Unit = {}) {
     val items = OnBoardingItem.get()
     val statePager = rememberPagerState(initialPage = initialPage) { items.size }
     val scope = rememberCoroutineScope()
+
     Box(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -99,7 +100,7 @@ fun OnBoardingScreen(onFinish: () -> Unit = {}) {
                 MyButtonMain(
                     stringResourceId = R.string.login,
                     modifier = Modifier
-                        .padding(horizontal =  20.dp)
+                        .padding(horizontal = 20.dp)
                         .fillMaxWidth()
                         .constrainAs(actions) {
                             bottom.linkTo(parent.bottom)
@@ -120,9 +121,8 @@ fun OnBoardingScreen(onFinish: () -> Unit = {}) {
 
                     MyButtonGrey(
                         stringResourceId = R.string.skip,
-                        onClick = onFinish,
+                        onClick = { onFinish.invoke() },
                         modifier = Modifier.padding(horizontal = 20.dp),
-
                         )
 
                     Box(Modifier.fillMaxWidth()) {

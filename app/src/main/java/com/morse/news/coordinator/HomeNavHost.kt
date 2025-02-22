@@ -5,15 +5,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.morse.news.feature_news.HomeScreen
 import com.morse.news.feature_search.SearchScreen
+import com.morse.onboarding.coordinator.OnBoardingDirections.Splash
 
 
-fun NavGraphBuilder.newsGraph(nav: NavHostController) {
-    homeScreen(nav)
+
+fun NavGraphBuilder.homeCycle(nav: NavHostController) {
+    newsScreen(nav)
     searchScreen(nav)
 }
 
-private fun NavGraphBuilder.homeScreen(nav: NavHostController) {
-    composable(NewsDirections.Home.AllNews.name) {
+private fun NavGraphBuilder.newsScreen(nav: NavHostController) {
+    composable("Home") {
         HomeScreen {
             navigateToSearch(nav)
         }
@@ -31,4 +33,11 @@ private fun NavGraphBuilder.searchScreen(nav: NavHostController) {
 
 fun navigateToSearch(navHostController: NavHostController) {
     navHostController.navigate(NewsDirections.Search.name)
+}
+
+
+fun navigateToHome(nav: NavHostController) = nav.navigate("Home"){
+    popUpTo(Splash.name){
+        inclusive = true
+    }
 }

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="newsy">NEWSY</string>
-    <string name="news_you_can_trust">News you can trust.</string>
-    <string name="choose_topics_that_matter">Choose topics that matter.</string>
-    <string name="choose_countries_that_matter">Choose countries that matter.</string>
-    <string name="login">Add Preferences</string>
-    <string name="skip">Skip</string>
-    <string name="next">Next</string>
-    <string name="save">Save</string>
-    <string name="back">BACK</string>
-    <string name="of">Of</string>
-    <string name="please_Select_country">Please select a country .</string>
-    <string name="please_Select_preference">Please select 3 preferences</string>
+    <string name="newsy">News</string>
+    <string name="news_you_can_trust">أخبار يمكنك الوثوق بها.</string>
+    <string name="choose_topics_that_matter">اختر الموضوعات التي تهمك.</string>
+    <string name="choose_countries_that_matter">اختر البلدان التي تهمك.</string>
+    <string name="login">إضافة التفضيلات</string>
+    <string name="skip">تخطي</string>
+    <string name="next">التالي</string>
+    <string name="save">حفظ</string>
+    <string name="back">رجوع</string>
+    <string name="of">من</string>
+    <string name="please_Select_country">الرجاء تحديد بلد.</string>
+    <string name="please_Select_preference">الرجاء تحديد 3 تفضيلات</string>
 </resources>

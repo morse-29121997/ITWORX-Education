@@ -121,7 +121,7 @@ fun SearchScreen(onClose: () -> Unit = {}) {
                     .padding(horizontal = 20.dp)
                     .padding(top = 10.dp),
                 shape = RoundedCornerShape(50),
-                colors = TextFieldDefaults.textFieldColors(
+                /*colors = TextFieldDefaults.ttextFieldColors(
                     containerColor = MyColor.color_000000,
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent ,
@@ -130,7 +130,7 @@ fun SearchScreen(onClose: () -> Unit = {}) {
                     focusedLabelColor = MyColor.color_af0909 ,
                     cursorColor = MyColor.color_af0909 ,
 
-                ),
+                ),*/
             )
 
             LazyColumn(

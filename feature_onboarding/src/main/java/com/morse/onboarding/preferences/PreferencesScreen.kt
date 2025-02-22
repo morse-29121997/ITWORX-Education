@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
 import com.morse.core.ui.MyButtonGrey
@@ -50,8 +51,12 @@ import com.morse.onboarding.preferences.select_preferences.SelectPreferences
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
-    var currentScreen by remember { mutableStateOf<OnBoardingDirections.SelectPreferences>(OnBoardingDirections.SelectPreferences.Country) }
+fun PreferenceScreen(vm: PreferencesViewModel = hiltViewModel(), onSaveSuccess: () -> Unit = {}) {
+    var currentScreen by remember {
+        mutableStateOf<OnBoardingDirections.SelectPreferences>(
+            OnBoardingDirections.SelectPreferences.Country
+        )
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -73,14 +78,14 @@ fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
                     .constrainAs(content) {
                         linkTo(top = parent.top, bottom = actions.top)
                         width = Dimension.matchParent
-                        verticalBias =0f
+                        verticalBias = 0f
                     }
                     .padding(bottom = 50.dp),
             ) {
-                TopBar(currentScreen){}
-                when(currentScreen){
-                    OnBoardingDirections.SelectPreferences.Country -> SelectCountry()
-                    OnBoardingDirections.SelectPreferences.Categories -> SelectPreferences()
+                TopBar(currentScreen) {}
+                when (currentScreen) {
+                    OnBoardingDirections.SelectPreferences.Country -> SelectCountry(vm)
+                    OnBoardingDirections.SelectPreferences.Categories -> SelectPreferences(vm)
                 }
 
             }
@@ -111,9 +116,11 @@ fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
 
                     MyButtonGrey(
                         stringResourceId = R.string.back,
-                        onClick = { currentScreen = OnBoardingDirections.SelectPreferences.Country},
+                        onClick = {
+                            currentScreen = OnBoardingDirections.SelectPreferences.Country
+                        },
                         modifier = Modifier.padding(horizontal = 20.dp),
-                        )
+                    )
 
                     Box(Modifier.fillMaxWidth()) {
                         MyButtonMain(
@@ -122,7 +129,8 @@ fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
                                 .padding(horizontal = 20.dp)
                                 .align(CenterEnd),
                         ) {
-                            // save in database
+                            vm.onEvent(PreferencesEvents.Save)
+                            onSaveSuccess.invoke()
                         }
 
                     }
@@ -133,7 +141,10 @@ fun PreferenceScreen(onSaveSuccess : () -> Unit = {}) {
 }
 
 @Composable
-fun TopBar(currentScreen: OnBoardingDirections.SelectPreferences = OnBoardingDirections.SelectPreferences.Country , onClose: () -> Unit) {
+fun TopBar(
+    currentScreen: OnBoardingDirections.SelectPreferences = OnBoardingDirections.SelectPreferences.Country,
+    onClose: () -> Unit
+) {
     Column(
         Modifier
             .background(Color.Unspecified)
@@ -155,7 +166,7 @@ fun TopBar(currentScreen: OnBoardingDirections.SelectPreferences = OnBoardingDir
 
                 )
             LinearProgressIndicator(
-                progress = { if(currentScreen == OnBoardingDirections.SelectPreferences.Country) 0.5f else  1f },
+                progress = { if (currentScreen == OnBoardingDirections.SelectPreferences.Country) 0.5f else 1f },
                 modifier = Modifier
                     .weight(6F)
                     .height(6.dp)
@@ -170,7 +181,7 @@ fun TopBar(currentScreen: OnBoardingDirections.SelectPreferences = OnBoardingDir
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if(currentScreen == OnBoardingDirections.SelectPreferences.Country) "1" else  "2",
+                    text = if (currentScreen == OnBoardingDirections.SelectPreferences.Country) "1" else "2",
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp,
                     style = MyTypography.bodyMedium,
@@ -196,11 +207,12 @@ fun TopBar(currentScreen: OnBoardingDirections.SelectPreferences = OnBoardingDir
         }
 
         Text(
-            text = stringResource( if(currentScreen == OnBoardingDirections.SelectPreferences.Country) R.string.please_Select_country else R.string.please_Select_preference),
+            text = stringResource(if (currentScreen == OnBoardingDirections.SelectPreferences.Country) R.string.please_Select_country else R.string.please_Select_preference),
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp,
-            modifier = Modifier.fillMaxWidth()
-                .padding(vertical = 15.dp , horizontal = 10.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 15.dp, horizontal = 10.dp),
             color = MyColor.color_FFFFFF,
             maxLines = Int.MAX_VALUE,
             textAlign = TextAlign.Start,

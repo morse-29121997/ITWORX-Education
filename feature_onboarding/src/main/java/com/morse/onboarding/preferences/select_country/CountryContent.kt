@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,13 +25,15 @@ import androidx.compose.ui.unit.sp
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
 import com.morse.core.ui_models.Country
+import com.morse.onboarding.preferences.PreferencesEvents
+import com.morse.onboarding.preferences.PreferencesViewModel
 
 
 @Composable
 fun SelectCountry(
-    countries: List<Country> = Country.get(),
-    onCountrySelected: (Country) -> Unit = {}
+    vm: PreferencesViewModel,
 ) {
+    val countries = vm.preferencesState.collectAsState().value.allCountries
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier
@@ -41,7 +44,7 @@ fun SelectCountry(
         items(countries.size) { index ->
             CountryItem(countries[index]) {
                 countries.onEach { if (it.key != countries[index].key) it.isSelected.value = false }
-                onCountrySelected.invoke(countries[index])
+                vm.onEvent(PreferencesEvents.SelectCountry(countries[index]))
             }
         }
 

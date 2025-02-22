@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -45,6 +48,9 @@ android {
         compose = true
         buildConfig = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.15"
+    }
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -55,6 +61,9 @@ dependencies {
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
     api(libs.androidx.ui.tooling.preview)
+    api(libs.hilt.android)
+    api(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
     api(libs.coil.compose)
     api(libs.coil.network.okhttp)
     api(libs.androidx.constraintlayout.compose)

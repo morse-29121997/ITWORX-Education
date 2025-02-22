@@ -1,4 +1,4 @@
-package com.morse.onboarding.coordinator
+package com.morse.news.coordinator
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,37 +10,32 @@ import com.morse.onboarding.onboarding.OnBoardingScreen
 import com.morse.onboarding.preferences.PreferenceScreen
 import com.morse.onboarding.splash.SplashScreen
 
-enum class SplashDirections {
-    OnBoarding ,
-    Home
-}
-
-fun NavGraphBuilder.onBoardingGraph(nav : NavHostController , onSaveSuccess : () -> Unit) {
-    splashScreen(nav , onSaveSuccess)
+fun NavGraphBuilder.onBoardingCycle (nav: NavHostController){
+    splashScreen(nav){ navigateToHome(nav)}
     onBoardingScreen(nav)
-    selectCountryAndPreferencesScreen(nav , onSaveSuccess)
+    selectCountryAndPreferencesScreen(nav){ navigateToHome(nav)}
 }
 
 private fun NavGraphBuilder.splashScreen (nav: NavHostController , navToHome : () -> Unit = {}){
     composable(Splash.name) {
         SplashScreen {
             when(it){
-                SplashDirections.OnBoarding -> navigateToOnBoarding(nav)
-                SplashDirections.Home -> navToHome()
+                true -> navigateToOnBoarding(nav)
+                false -> navToHome()
             }
         }
     }
 }
 
-private fun NavGraphBuilder.onBoardingScreen (nav: NavHostController){
+private  fun NavGraphBuilder.onBoardingScreen (nav: NavHostController){
     composable(OnBoarding.name) {
-        OnBoardingScreen() {
+        OnBoardingScreen {
             navigateToOnSelectCountryAndPreferences(nav)
         }
     }
 }
 
-private fun NavGraphBuilder.selectCountryAndPreferencesScreen (nav: NavHostController, navToHome : () -> Unit = {}){
+private  fun NavGraphBuilder.selectCountryAndPreferencesScreen (nav: NavHostController, navToHome : () -> Unit = {}){
     composable(SelectPreferences.Country.name) {
         PreferenceScreen{
             navToHome()

@@ -1,7 +1,6 @@
 package com.morse.onboarding.splash
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,19 +22,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
 import com.morse.onboarding.R
-import com.morse.onboarding.coordinator.SplashDirections
 import kotlinx.coroutines.delay
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SplashScreen(onNavigate: (SplashDirections) -> Unit = {}) {
+fun SplashScreen(
+    vm: SplashViewModel = hiltViewModel(),
+    onNavigate: (Boolean) -> Unit = {}
+) {
     LaunchedEffect(Unit) {
         delay(3000)
-        onNavigate(SplashDirections.OnBoarding)
+        onNavigate(vm.isFirstTime())
     }
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -86,7 +88,7 @@ fun SplashScreen(onNavigate: (SplashDirections) -> Unit = {}) {
                 .fillMaxWidth(0.4f)
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 50.dp),
-            color = MyColor.color_000000 ,
+            color = MyColor.color_000000,
             trackColor = MyColor.color_FFFFFF
         )
     }
