@@ -18,6 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
         buildConfigField("String", "BASE_COUNTRIES_URL", "\"https://restcountries.com/v3.1/\"")
         buildConfigField("String", "BASE_NEWS_URL", "\"https://newsapi.org/v2/\"")
     }
@@ -42,7 +43,6 @@ android {
         compose = true
         buildConfig = true
     }
-
     kapt {
         correctErrorTypes = true
     }
@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.multidex)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

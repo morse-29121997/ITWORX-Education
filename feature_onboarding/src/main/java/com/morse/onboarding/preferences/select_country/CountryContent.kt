@@ -26,17 +26,25 @@ import com.morse.core.theme.MyTypography
 import com.morse.core.ui_models.Country
 
 
-
 @Composable
-fun SelectCountry(countries: List<Country> = Country.get(), onCountrySelected: () -> Unit = {}) {
+fun SelectCountry(
+    countries: List<Country> = Country.get(),
+    onCountrySelected: (Country) -> Unit = {}
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        modifier = Modifier.fillMaxSize().padding(vertical = 10.dp),
-        contentPadding = PaddingValues(top = 10.dp , bottom = 40 .dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 10.dp),
+        contentPadding = PaddingValues(top = 10.dp, bottom = 40.dp)
     ) {
         items(countries.size) { index ->
-            CountryItem(countries[index], onCountrySelected)
+            CountryItem(countries[index]) {
+                countries.onEach { if (it.key != countries[index].key) it.isSelected.value = false }
+                onCountrySelected.invoke(countries[index])
+            }
         }
+
     }
 
 }
@@ -45,11 +53,13 @@ fun SelectCountry(countries: List<Country> = Country.get(), onCountrySelected: (
 fun CountryItem(country: Country, onCountrySelected: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally ,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .size(100.dp)
-            .clickable { onCountrySelected.invoke()
-                country.isSelected.value = !country.isSelected.value}
+            .clickable {
+                onCountrySelected.invoke()
+                country.isSelected.value = !country.isSelected.value
+            }
             .padding(20.dp)
             .background(
                 if (country.isSelected.value) MyColor.color_af0909 else MyColor.color_FFFFFF,
@@ -72,8 +82,10 @@ fun CountryItem(country: Country, onCountrySelected: () -> Unit) {
             fontSize = 13.sp,
             textAlign = TextAlign.Center,
             style = MyTypography.bodyMedium,
-            color =  if (country.isSelected.value) MyColor.color_FFFFFF else MyColor.color_000000,
-            modifier = Modifier.fillMaxWidth().padding(top = 2.dp)
+            color = if (country.isSelected.value) MyColor.color_FFFFFF else MyColor.color_000000,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 2.dp)
         )
     }
 }

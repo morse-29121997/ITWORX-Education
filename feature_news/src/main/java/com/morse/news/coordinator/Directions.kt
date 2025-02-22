@@ -1,9 +1,11 @@
 package com.morse.news.coordinator
 
-sealed class NewsDirections {
-    sealed class Home : NewsDirections(){
+import androidx.navigation.NavHostController
+
+sealed class NewsDirections (val name : String){
+    sealed class Home : NewsDirections("Home"){
         data object AllNews : Home()
         data object SavedNews : Home()
     }
-    data object Search : NewsDirections()
+    data object Search : NewsDirections("Search")
 }

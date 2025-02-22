@@ -46,17 +46,22 @@ android {
 
 dependencies {
 
+    api(project(":domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     api(libs.kotlinx.coroutines.android)
     api(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.preference.ktx)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.gson.converter)
     implementation(libs.gson)
     implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
     ksp(libs.room.compiler)
     api(libs.hilt.android)
     ksp(libs.hilt.compiler)

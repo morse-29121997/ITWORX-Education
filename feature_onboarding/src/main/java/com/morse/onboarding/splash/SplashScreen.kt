@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -25,11 +26,17 @@ import androidx.compose.ui.unit.sp
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
 import com.morse.onboarding.R
+import com.morse.onboarding.coordinator.SplashDirections
+import kotlinx.coroutines.delay
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SplashScreen(onNavigate: () -> Unit = {}) {
+fun SplashScreen(onNavigate: (SplashDirections) -> Unit = {}) {
+    LaunchedEffect(Unit) {
+        delay(3000)
+        onNavigate(SplashDirections.OnBoarding)
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.on_boarding_bg),
