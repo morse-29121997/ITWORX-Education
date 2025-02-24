@@ -1,31 +1,19 @@
 <p align="center">
-<img src=".images/bg.png"/>
+<img src=".demo/itworx.jpeg"/>
 </p>
 
-<h1 align="center">ITWORX Education</h1>
-
-<p align="center">
-     <a href="https://wakatime.com/badge/user/25e36a94-826e-4b90-bf37-6d78d9028422/project/6deba08a-9682-443f-83c8-3add2560778c.svg"/><img alt="API" src="https://wakatime.com/badge/user/25e36a94-826e-4b90-bf37-6d78d9028422/project/6deba08a-9682-443f-83c8-3add2560778c.svg"/></a>
-     <a href="https://github.com/devil2020?tab=followers"><img alt="API" src="https://img.shields.io/github/stars/devil2020?style=social"/></a>
-
-</p>
-
-
+<h1 align="center">ITWORX Education Task</h1>
 
 <p align="center">  
-   upon running the application you will face a splash screen , then you will find onboarding screen if we just press next and in last step press on Get Started The OnBoarding Step will not show again ever after that we will face Movies , TV And Profile Tabs Also When click on any Media it will show the details we can make 2 actions on this 
-            1 - Provide Like .
-            2 - Make Star For Movie .
-   this will effect in profile , that will show the statics .
+   upon running the application you will face a splash screen , then you will find onboarding screen if we just press next and in last step press on Get Started The OnBoarding Step will not show again ever after that we will must add our preference like country and some categorious then we will face with news When click on any new it will show the chome to open the link , so what the application do ? 
+            1 - view all news according selection of source .
+            2 - view all top headline sorted by published data .
+            3 - add new to saved later and can remove on them .
+            4 - search on all news that you want 
 </p>
 </br>
 
-## Download
-Go to the [Releases](https://github.com/Devil2020/Bosta/releases/download/1.0.0/app-commonResources-debug.apk) to download the latest APK.
-
-
-
-<img src=".images/demo.gif" align="right" width="32%"/>
+<img src=".demo/demo.gif" align="right" width="32%"/>
 
 
 
@@ -39,20 +27,20 @@ Go to the [Releases](https://github.com/Devil2020/Bosta/releases/download/1.0.0/
 ## Tech stack & Open-source libraries
 - Minimum SDK level 21
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
-- [Hilt](https://dagger.dev/hilt/) for dependency injection.
+- [Hilt](https://dagger.dev/hilt/) for dependency injection + [Compose](https://developer.android.com/compose) for UI
 - JetPack
     - Compose - declartive ui .
     - Lifecycle - dispose of observing data when lifecycle state changes.
     - ViewModel - UI related data holder, lifecycle aware.
     - RunTime Cashe construct a Cache using the abstract layer .
 - Architecture
-    - MVVM Architecture (View - DataBinding - ViewModel - Model)
-    - [Binding Adapter]() - Android DataBinding kit for notifying data changes to UI layers.
+    - MVI Architecture (View - DataBinding - Intent )
+    - Modularization ( applied the domain layer as java module 🔥 ).
     - Repository pattern
 - [Retrofit2 & OkHttp3](https://github.com/square/retrofit) - construct the REST APIs and paging network data.
-- [Proto Bufs Data Store](https://github.com/square/retrofit) - construct the Cache .
+- [Room](https://github.com/square/retrofit) - construct the Cache .
 - [Gson](https://github.com/square/moshi/) - A modern JSON library for Kotlin and Java.
-- [Picasso](https://square.github.io/picasso/)
+- [Coil](https://square.github.io/picasso/)
 - [Material-Components](https://github.com/material-components/material-components-android) - Material design components like ripple animation, cardView.
 
 
