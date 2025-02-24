@@ -8,7 +8,6 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(private val repo: ISessionRepository) : ViewModel() {
-    private val useCase by lazy { GetIsUserFirstTimeToAddPreferencesUseCase(repo) }
+class SplashViewModel @Inject constructor(private val useCase: GetIsUserFirstTimeToAddPreferencesUseCase) : ViewModel() {
     fun isFirstTime() : Boolean = useCase(Unit)
 }

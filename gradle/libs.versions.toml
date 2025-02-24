@@ -29,6 +29,7 @@ pagingCommonAndroid = "3.3.6"
 jetbrainsKotlinJvm = "2.0.21"
 androidx-preference = "1.2.1"
 lottie = "6.4.0"
+javaInject = "1" # Or the latest version
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -73,6 +74,7 @@ androidx-constraintlayout-compose = { group = "androidx.constraintlayout", name 
 androidx-multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaInject" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

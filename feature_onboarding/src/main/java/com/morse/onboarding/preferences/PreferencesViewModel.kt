@@ -7,6 +7,7 @@ import com.morse.domain.repositories.ISessionRepository
 import com.morse.domain.usecases.onboarding.AddIsUserFirstTimeToAddPreferencesUseCase
 import com.morse.domain.usecases.onboarding.AddSelectedCountryUseCase
 import com.morse.domain.usecases.onboarding.AddSelectedPreferencesUseCase
+import com.morse.domain.usecases.onboarding.GetSelectedCountryUseCase
 import com.morse.onboarding.mappers.asDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,10 +28,11 @@ data class PreferencesState(
 )
 
 @HiltViewModel
-class PreferencesViewModel @Inject constructor(private val repo: ISessionRepository) : ViewModel() {
-    private val addCountryUseCase by lazy { AddSelectedCountryUseCase(repo) }
-    private val addPreferencesUseCase by lazy { AddSelectedPreferencesUseCase(repo) }
-    private val addIsNotFirstTimeUseCase by lazy { AddIsUserFirstTimeToAddPreferencesUseCase(repo) }
+class PreferencesViewModel @Inject constructor(
+    private val addCountryUseCase: AddSelectedCountryUseCase,
+    private val addPreferencesUseCase: AddSelectedPreferencesUseCase,
+    private val addIsNotFirstTimeUseCase: AddIsUserFirstTimeToAddPreferencesUseCase,
+) : ViewModel() {
     val preferencesState = MutableStateFlow(
         PreferencesState(
             allCountries = Country.get(),
