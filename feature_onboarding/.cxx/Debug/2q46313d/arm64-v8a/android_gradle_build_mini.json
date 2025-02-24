@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/mohammedmorse/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/.cxx/Debug/2q46313d/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/mohammedmorse/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/.cxx/Debug/2q46313d/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "onboarding::@6890427a1f51a3e7e1df": {
+      "artifactName": "onboarding",
+      "abi": "arm64-v8a",
+      "output": "/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/build/intermediates/cxx/Debug/2q46313d/obj/arm64-v8a/libonboarding.so",
+      "runtimeFiles": []
+    }
+  }
+}

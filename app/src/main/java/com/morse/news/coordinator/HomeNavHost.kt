@@ -3,6 +3,7 @@ package com.morse.news.coordinator
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -10,7 +11,7 @@ import com.morse.news.feature_news.HomeScreen
 import com.morse.news.feature_search.SearchScreen
 import com.morse.onboarding.coordinator.OnBoardingDirections.Splash
 
-fun openLink (context: Context , url : String){
+fun openLink(context: Context, url: String) {
     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     context.startActivity(browserIntent)
 }
@@ -26,18 +27,19 @@ private fun NavGraphBuilder.newsScreen(nav: NavHostController) {
             openLink(nav.context, it.url)
         }) { direction ->
             when (direction) {
-                NewsDirections.Search ->navigateToSearch (nav)
+                NewsDirections.Search -> navigateToSearch(nav)
+                NewsDirections.Preferences -> navigateToOnSelectCountryAndPreferences(nav)
+                is NewsDirections.Restart -> {}
                 else -> {}
             }
         }
     }
 }
 
-
 private fun NavGraphBuilder.searchScreen(nav: NavHostController) {
     composable(NewsDirections.Search.name) {
-        SearchScreen (onPressed = {
-
+        SearchScreen(onPressed = {
+            openLink(nav.context, it.url)
         }) {
             nav.popBackStack()
         }
@@ -49,8 +51,8 @@ fun navigateToSearch(navHostController: NavHostController) {
 }
 
 
-fun navigateToHome(nav: NavHostController) = nav.navigate("Home"){
-    popUpTo(Splash.name){
+fun navigateToHome(nav: NavHostController) = nav.navigate("Home") {
+    popUpTo(Splash.name) {
         inclusive = true
     }
 }

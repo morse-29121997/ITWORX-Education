@@ -7,4 +7,6 @@ sealed class NewsDirections (val name : String){
         data object SavedNews : Home()
     }
     data object Search : NewsDirections("Search")
+    data object Preferences : NewsDirections("Preferences")
+    data class Restart (val isArabic : Boolean) : NewsDirections("Restart")
 }

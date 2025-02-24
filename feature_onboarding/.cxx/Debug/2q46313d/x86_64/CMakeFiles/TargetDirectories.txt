@@ -1,0 +1,3 @@
+/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/.cxx/Debug/2q46313d/x86_64/CMakeFiles/onboarding.dir
+/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/.cxx/Debug/2q46313d/x86_64/CMakeFiles/edit_cache.dir
+/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/.cxx/Debug/2q46313d/x86_64/CMakeFiles/rebuild_cache.dir

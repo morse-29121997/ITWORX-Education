@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "/Users/mohammedmorse/AndroidStudioProjects/News/datasource/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/mohammedmorse/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/mohammedmorse/AndroidStudioProjects/News/datasource/.cxx/Debug/4e2l4s4t/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/mohammedmorse/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/mohammedmorse/AndroidStudioProjects/News/datasource/.cxx/Debug/4e2l4s4t/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "datasource::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86_64",
+      "artifactName": "datasource",
+      "output": "/Users/mohammedmorse/AndroidStudioProjects/News/datasource/build/intermediates/cxx/Debug/4e2l4s4t/obj/x86_64/libdatasource.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/mohammedmorse/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/Users/mohammedmorse/Library/Android/sdk/ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

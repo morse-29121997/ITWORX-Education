@@ -1,0 +1,3 @@
+/Users/mohammedmorse/AndroidStudioProjects/News/datasource/.cxx/RelWithDebInfo/3e2k3s6j/x86/CMakeFiles/datasource.dir
+/Users/mohammedmorse/AndroidStudioProjects/News/datasource/.cxx/RelWithDebInfo/3e2k3s6j/x86/CMakeFiles/edit_cache.dir
+/Users/mohammedmorse/AndroidStudioProjects/News/datasource/.cxx/RelWithDebInfo/3e2k3s6j/x86/CMakeFiles/rebuild_cache.dir
