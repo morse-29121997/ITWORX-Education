@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -39,6 +40,13 @@ import coil3.compose.AsyncImage
 import com.morse.core.extensions.convertDateWithTime
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
+import com.morse.core.ui.Empty
+import com.morse.core.ui.Error
+import com.morse.core.ui.Loading
+import com.morse.core.ui.URLImageLoader
+import com.morse.core.ui.isEmpty
+import com.morse.core.ui.isError
+import com.morse.core.ui.isLoading
 import com.morse.core.ui.items
 import com.morse.core.ui_models.Country
 import com.morse.core.ui_models.New
@@ -48,7 +56,8 @@ import com.morse.news.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun HomeContent(vm: NewsViewModel = hiltViewModel(), onPressed: (New) -> Unit) {
+fun HomeContent( onPressed: (New) -> Unit) {
+    val vm: NewsViewModel = hiltViewModel()
     val state = vm.newsState.collectAsState().value
     Column(
         modifier = Modifier
@@ -83,16 +92,21 @@ fun HeadLineNewsSection(
         modifier = Modifier
             .padding(top = 5.dp, start = 10.dp, end = 10.dp)
     )
-
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp)
-    ) {
-        items(news) { new ->
-            HeadlineItem(new, onSavedClicked, onPressed)
+    when{
+        news.isLoading() -> Loading(Modifier.fillMaxWidth().height(120.dp))
+        news.isEmpty() -> Empty(Modifier.fillMaxWidth().height(120.dp))
+        news.isError() -> Error(Modifier.fillMaxWidth().height(120.dp) , "fail to load headline news." )
+        else ->     LazyRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp)
+        ) {
+            items(news) { new ->
+                HeadlineItem(new, onSavedClicked, onPressed)
+            }
         }
     }
+
 }
 
 @Composable
@@ -120,14 +134,22 @@ fun AllNewsSectionByCategorySection(
             }
         }
     }
+    when {
+        news.isLoading() -> Loading(Modifier.fillMaxWidth().fillMaxHeight())
+        news.isEmpty() -> Empty(Modifier.fillMaxWidth().fillMaxHeight())
+        news.isError() -> Error(
+            Modifier.fillMaxWidth().height(120.dp),
+            "fail to load headline news."
+        )
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 10.dp)
-    ) {
-        items(news) { new ->
-            NewItem(new, onNewPressed, onSavedClicked)
+        else -> LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 10.dp)
+        ) {
+            items(news) { new ->
+                NewItem(new, onNewPressed, onSavedClicked)
+            }
         }
     }
 }
@@ -150,16 +172,12 @@ fun NewItem(new: New, onPressed: (New) -> Unit, onSavedClicked: (New, Boolean) -
         )
 
         Row(modifier = Modifier.fillMaxSize()) {
-            AsyncImage(
-                new.urlToImage,
-                modifier = Modifier
-                    .fillMaxWidth(0.45f)
-                    .height(130.dp)
-                    .clip(RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp))
-                    .padding(1.dp),
-                contentScale = ContentScale.FillBounds,
-                contentDescription = null
-            )
+            URLImageLoader(Modifier
+                .fillMaxWidth(0.45f)
+                .height(130.dp)
+                .clip(RoundedCornerShape(topStart = 12.dp, bottomStart = 12.dp))
+                .padding(1.dp) , new.urlToImage ?: "")
+
 
             Column(
                 modifier = Modifier
@@ -171,6 +189,7 @@ fun NewItem(new: New, onPressed: (New) -> Unit, onSavedClicked: (New, Boolean) -
                     text = new.title,
                     color = MyColor.color_FFFFFF,
                     fontSize = 13.sp,
+                    maxLines = 3,
                     fontWeight = FontWeight.Normal,
                     style = MyTypography.titleLarge,
                     modifier = Modifier.padding(horizontal = 10.dp)
@@ -210,13 +229,11 @@ fun HeadlineItem(new: New, onSavedClicked: (New, Boolean) -> Unit, onPressed: (N
                 onPressed.invoke(new)
             }
     ) {
-        AsyncImage(
-            new.urlToImage,
-            modifier = Modifier
+        URLImageLoader(
+            Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(7)),
-            contentScale = ContentScale.FillBounds,
-            contentDescription = null
+                .clip(RoundedCornerShape(7)) ,
+            new.urlToImage ?: ""
         )
         Image(
             painter = painterResource(R.drawable.place_headline_data_bg),

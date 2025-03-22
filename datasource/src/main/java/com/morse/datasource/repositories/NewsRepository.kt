@@ -25,7 +25,8 @@ class NewsRepository @Inject constructor(
     INewsRepository {
 
     override suspend fun isSaved(news: New): Boolean {
-        return scope.async { db.isExist(news.url) }.await()
+        val allSaved = getWatchLater()
+        return allSaved.any{it.url == news.url}
     }
 
     override fun saveFromWatchLater(news: New) {

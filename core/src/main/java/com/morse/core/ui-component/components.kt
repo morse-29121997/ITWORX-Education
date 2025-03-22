@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.FlingBehavior
@@ -27,16 +28,22 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -50,12 +57,14 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
+import coil3.compose.AsyncImage
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.morse.core.R
 import com.morse.core.theme.MyColor
+import java.lang.Thread.State
 
 
 @Composable
@@ -203,6 +212,14 @@ fun Indicator(
     }
 }
 
+@Composable
+fun ImageLoading(modifier: Modifier = Modifier) {
+    CircularProgressIndicator(
+        modifier = modifier,
+        strokeWidth = (1.5).dp,
+        color = MyColor.color_EA5B59
+    )
+}
 
 @Composable
 fun Loading(modifier: Modifier) {
@@ -365,7 +382,7 @@ fun <T : Any> LazyColumnPaging(
 
     ) {
 
-    LazyColumn (
+    LazyColumn(
         modifier,
         state,
         contentPadding,
@@ -430,4 +447,41 @@ fun onStart(
         }
     }
 
+}
+
+enum class ImageState {
+    Loading,
+    Error,
+    Success
+}
+
+@Composable
+fun URLImageLoader( modifier: Modifier , url: String) {
+    val state = remember { mutableStateOf(ImageState.Loading) }
+    when (state.value) {
+        ImageState.Loading -> Box(modifier =modifier) {
+            ImageLoading(
+                Modifier.align(
+                    Alignment.Center
+                )
+            )
+        }
+
+        ImageState.Error ->  Box(modifier =modifier) {
+            Image(painterResource(R.drawable.img), contentDescription = null , modifier =  modifier.align(Alignment.Center))
+        }
+        ImageState.Success -> {}
+    }
+    AsyncImage(
+        url,
+        modifier =modifier
+            .alpha(if (state.value == ImageState.Success) 1f else 0f),
+        contentScale = ContentScale.FillBounds,
+        contentDescription = null,
+        onLoading = {
+            state.value = ImageState.Loading
+        },
+        onError = { state.value = ImageState.Error },
+        onSuccess = { state.value = ImageState.Success },
+    )
 }

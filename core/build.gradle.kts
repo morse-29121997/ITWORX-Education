@@ -53,6 +53,9 @@ dependencies {
     api(libs.kotlinx.coroutines.core)
     api(platform(libs.androidx.compose.bom))
     api(libs.navigation.compose)
+
+    api(libs.coil.compose)
+    api(libs.coil.network.okhttp)
     api(libs.androidx.ui)
     api(libs.androidx.paging.common.android)
     api(libs.paging.runtime)

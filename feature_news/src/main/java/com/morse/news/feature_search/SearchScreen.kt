@@ -7,8 +7,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -47,6 +49,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.morse.core.theme.MyColor
 import com.morse.core.theme.MyTypography
+import com.morse.core.ui.Empty
+import com.morse.core.ui.Error
+import com.morse.core.ui.Loading
+import com.morse.core.ui.isEmpty
+import com.morse.core.ui.isError
+import com.morse.core.ui.isLoading
 import com.morse.core.ui.items
 import com.morse.core.ui_models.New
 import com.morse.news.R
@@ -153,19 +161,26 @@ fun SearchScreen(
 
                     ),
             )
+            when {
+                headlines.isLoading() -> Loading(Modifier.fillMaxWidth().fillMaxHeight())
+                headlines.isEmpty() -> Empty(Modifier.fillMaxWidth().fillMaxHeight())
+                headlines.isError() -> Error(
+                    Modifier.fillMaxWidth().height(120.dp),
+                    "fail to load headline news."
+                )
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 10.dp)
-            ) {
-                items(headlines) { headline ->
-                    NewItem(headline, onPressed) { new, isSaved ->
-                        vm.onEvent(SearchEvent.OnWatchLaterSelected(new, isSaved))
+                else -> LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 10.dp)
+                ) {
+                    items(headlines) { headline ->
+                        NewItem(headline, onPressed) { new, isSaved ->
+                            vm.onEvent(SearchEvent.OnWatchLaterSelected(new, isSaved))
+                        }
                     }
                 }
             }
         }
-
     }
 }
