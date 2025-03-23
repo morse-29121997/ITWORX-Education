@@ -1,1 +1,0 @@
-/Users/mohammedmorse/AndroidStudioProjects/News/feature_onboarding/src/main/cpp/CMakeLists.txt
