@@ -13,7 +13,7 @@
 </p>
 </br>
 
-<img src=".demo/demo.gif" align="right" width="32%"/>
+<img src=".demo/demo.gf" align="right" width="32%"/>
 
 
 
