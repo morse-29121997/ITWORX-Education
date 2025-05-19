@@ -5,26 +5,22 @@
 <h1 align="center">ITWORX Education Task</h1>
 
 <p align="center">  
-   upon running the application you will face a splash screen , then you will find onboarding screen if we just press next and in last step press on Get Started The OnBoarding Step will not show again ever after that we will must add our preference like country and some categorious then we will face with news When click on any new it will show the chome to open the link , so what the application do ? 
+   upon running the application you will face a splash screen , then you will find onboarding screen if we just press next and in last step press on Get Started The OnBoarding
+   Step will not show again ever after that we will must add our preference like country and some categorious then we will face with news When click on any new it will show
+   the chome to open the link , so what the application do ? 
             1 - view all news according selection of source .
             2 - view all top headline sorted by published data .
             3 - add new to saved later and can remove on them .
             4 - search on all news that you want 
 </p>
+
 </br>
-
-<img src=".demo/demo.gif" align="right" width="32%"/>
-
-
-
-
-
-
-
-
 
 
 ## Tech stack & Open-source libraries
+
+<img src=".demo/demo.gif" align="right" width="32%"/>
+
 - Minimum SDK level 21
 - [Kotlin](https://kotlinlang.org/) based, [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) + [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/) for asynchronous.
 - [Hilt](https://dagger.dev/hilt/) for dependency injection + [Compose](https://developer.android.com/compose) for UI
